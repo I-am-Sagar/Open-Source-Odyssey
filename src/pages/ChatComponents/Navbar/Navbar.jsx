@@ -1,27 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        // Add logic to toggle dark mode (e.g., update CSS classes or theme context)
+        document.documentElement.classList.toggle('dark', !isDarkMode);
+    };
+
     return (
-        <nav className="bg-white shadow-md fixed w-full top-0 z-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="bg-white shadow-md fixed w-full top-0 z-10 dark:bg-gray-800">
+            <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    {/* Logo and Title */}
+                    {/* Logo, ProjectX, and Title */}
                     <div className="flex items-center">
-                        <div className="flex-shrink-0">
-                            <img
-                                className="h-8 w-8"
-                                src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" // Replace with your logo URL
-                                alt="Logo"
-                            />
+                        {/* ProjectX Title */}
+                        <div
+                            className="text-2xl font-bold text-gray-800 dark:text-white cursor-pointer hover:text-gray-600 dark:hover:text-gray-300"
+                            onClick={() => navigate('/')}
+                        >
+                            ProjectX
                         </div>
-                        <div className="ml-3 text-xl font-semibold text-gray-800">
-                            ChatBot
+                        {/* Logo and ChatBot Title */}
+                        <div className="flex items-center ml-4">
+                            <div className="flex-shrink-0">
+                                <img
+                                    className="h-8 w-8"
+                                    src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" // Replace with your logo URL
+                                    alt="Logo"
+                                />
+                            </div>
+                            <div className="ml-3 text-xl font-semibold text-gray-800 dark:text-white">
+                                ChatBot
+                            </div>
                         </div>
                     </div>
 
-                    {/* Additional Actions (e.g., Settings, Profile) */}
-                    <div className="flex items-center">
-                        <button className="p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                    {/* Settings Dropdown */}
+                    <div className="flex items-center relative">
+                        <button
+                            className="p-2 text-gray-500 hover:text-gray-700 focus:outline-none dark:text-gray-400 dark:hover:text-gray-200"
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6"
