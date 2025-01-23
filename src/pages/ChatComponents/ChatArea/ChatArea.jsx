@@ -1,14 +1,6 @@
 import React from 'react';
 
-const ChatArea = () => {
-    // Sample chat messages (replace with actual data)
-    const messages = [
-        { id: 1, text: 'Hello! How can I help you today?', isBot: true },
-        { id: 2, text: 'Hi! I need help with my account.', isBot: false },
-        { id: 3, text: 'Sure! Could you please provide your account ID?', isBot: true },
-        { id: 4, text: 'My account ID is 12345.', isBot: false },
-    ];
-
+const ChatArea = ({ messages }) => {
     return (
         <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
             {/* Chat Messages */}
