@@ -1,6 +1,6 @@
 // Enhanced App component with updated styles and layout
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import NavbarCard from './Components/NavbarCard';
 import Navigation from './Components/Navigation';
@@ -15,6 +15,8 @@ import VerticalTimeline from './Components/Timeline';
 import Carousel from './Components/Carousel';
 import Hero from './Components/Hero';
 import Footer from "./Components/Footer"
+
+import ChatPage from './pages/ChatPage';
 
 
 const Homepage = () => {
@@ -36,14 +38,13 @@ const Homepage = () => {
   );
 };
 
+function AppContent() {
+  const location = useLocation(); // Get the current location
+  const isChatPage = location.pathname === '/chat'; // Check if the current route is /chat
 
-
-
-function App() {
   return (
-    <div className='bgC'>
-    <Router>
-      <Navigation />
+    <div className={`${isChatPage ? 'chat-bg' : 'bgC'}`}>
+      {!isChatPage && <Navigation />} {/* Show Navigation if not on Chat page */}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/events" element={<Events />} />
@@ -51,15 +52,19 @@ function App() {
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/past-projects" element={<PastProjects />} />
         <Route path="/upcoming-projects" element={<UpcomingProjects />} />
-        {/* <Route path="/time" element={<VerticalTimeline />} /> */}
-
-        {/* <Route path="/" element={<OrderManagement />} /> */}
+        <Route path="/chat" element={<ChatPage />} />
       </Routes>
-      <Footer />
+      {!isChatPage && <Footer />} {/* Show Footer if not on Chat page */}
+    </div>
+  );
+}
+
+
+function App() {
+  return (
+    <Router>
+      <AppContent /> {/* Wrap the main content in a Router */}
     </Router>
-    <div>
-    </div>
-    </div>
   );
 }
 
